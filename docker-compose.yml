@@ -1,0 +1,21 @@
+version: '3'
+services:
+  postgres-ptest:
+    image: postgres:11
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD:  password 
+      POSTGRES_DB:  ptest
+  lab-portal:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./lab-portal
+    image: lab-portal
+    volumes:
+      - ./lab-portal:/usr/src/lab-portal
+      - /lab-portal/node_modules
+    ports:
+      - "3000:3000"
+
